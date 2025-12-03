@@ -18,7 +18,12 @@ def load_faiss():
 db = load_faiss()
 retriever = db.as_retriever(search_kwargs={"k": 4})
 
-llm = ChatGoogleGenerativeAI(model="models/gemini-2.5-flash")
+
+llm = ChatGoogleGenerativeAI(
+    model="models/gemini-2.5-flash",
+    temperature=0.1
+)
+
 
 from langchain.chains import RetrievalQA
 qa_chain = RetrievalQA.from_chain_type(llm=llm, retriever=retriever, return_source_documents=True)
