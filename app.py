@@ -3,6 +3,8 @@ import os
 from langchain_community.vectorstores import FAISS
 from langchain_community.chat_models import ChatGoogleGenerativeAI
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain.chains import RetrievalQA
+
 
 os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
 
