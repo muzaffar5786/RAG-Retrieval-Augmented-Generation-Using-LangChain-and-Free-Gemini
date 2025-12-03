@@ -1,8 +1,8 @@
 import streamlit as st
 import os
+
 from langchain_community.vectorstores import FAISS
-from langchain_community.chat_models import ChatGoogleGenerativeAI
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 from langchain.chains import RetrievalQA
 
 
