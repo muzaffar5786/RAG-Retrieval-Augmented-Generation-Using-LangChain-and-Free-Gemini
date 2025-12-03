@@ -10,10 +10,23 @@ os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
 
 st.title("Medical RAG Assistant")
 
+
 @st.cache_resource
 def load_faiss():
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
-    return FAISS.load_local("medical_faiss_store", embeddings, allow_dangerous_deserialization=True)
+    embeddings = GoogleGenerativeAIEmbeddings(
+        model="models/text-embedding-004"
+    )
+
+    if not os.path.exists("medical_faiss_store"):
+        st.warning("Vector store not found. Building FAISS index now (first run only)...")
+        os.system("python build_index.py")
+
+    return FAISS.load_local(
+        "medical_faiss_store",
+        embeddings,
+        allow_dangerous_deserialization=True
+    )
+
 
 db = load_faiss()
 retriever = db.as_retriever(search_kwargs={"k": 4})
