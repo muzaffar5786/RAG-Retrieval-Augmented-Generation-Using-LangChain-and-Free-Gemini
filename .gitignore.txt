@@ -1,0 +1,10 @@
+medical_faiss_store/
+*.faiss
+*.pkl
+*.bin
+*.npy
+*.zip
+
+__pycache__/
+.ipynb_checkpoints/
+.env
