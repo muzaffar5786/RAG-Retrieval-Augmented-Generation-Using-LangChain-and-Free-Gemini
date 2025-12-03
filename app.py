@@ -19,14 +19,18 @@ def load_faiss():
 
     if not os.path.exists("medical_faiss_store"):
         st.warning("Vector store not found. Building FAISS index now (first run only)...")
-        os.system("python build_index.py")
+
+        exit_code = os.system("python build_index.py")
+
+        if exit_code != 0:
+            st.error("FAISS build failed. Check if dataset exists in repo.")
+            st.stop()
 
     return FAISS.load_local(
         "medical_faiss_store",
         embeddings,
         allow_dangerous_deserialization=True
     )
-
 
 
 db = load_faiss()
